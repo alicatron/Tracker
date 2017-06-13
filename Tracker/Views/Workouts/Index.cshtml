@@ -6,9 +6,24 @@
 
 <h2>Workouts</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div align ="right">
+<form asp-controller="Workouts" asp-action="Index">
+    <p>
+
+
+        @using (Html.BeginForm("Index", "Workouts", FormMethod.Get))
+        {
+        <p>
+            Search: @Html.TextBox("searchString")
+
+            <input type="submit" value="Search" />
+        </p>
+        }
+        </p>
+    </form>
+    </div>
+
+
 <table class="table">
     <tr>
         <th>
@@ -55,3 +70,6 @@
 }
 
 </table>
+<p>
+    @Html.ActionLink("Add New Workout", "Create")
+</p>

@@ -16,9 +16,22 @@ namespace Tracker.Controllers.TrackerController
         private TrackerContext db = new TrackerContext();
 
         // GET: Workouts
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.Workouts.ToList());
+            var exercises = from x in db.Workouts
+                            select x;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                exercises = exercises.Where(x => x.ExerciseName.Contains(searchString));
+                return View(exercises);
+            }
+           
+
+            else
+            {
+                return View(db.Workouts.ToList());
+            }
         }
 
         // GET: Workouts/Details/5

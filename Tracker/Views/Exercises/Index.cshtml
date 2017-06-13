@@ -6,10 +6,25 @@
 
 <h2>Exercise List</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<div align ="right">
+<form asp-controller="Exercises" asp-action="Index">
+    <p>
+    
+    
+    @using (Html.BeginForm("Index", "Exercises", FormMethod.Get))
+    {
+        <p>
+            Search: @Html.RadioButton("option", "ExerciseName")<text>Exercise</text>
+            @Html.RadioButton("option", "BodyPart")<text>BodyPart</text>@Html.TextBox("searchString")
+
+            <input type="submit" value="Search"/>
+                </p>
+    }
+    </p>
+</form>
+</div>
+
+<table class="table-responsive">
     <tr>
         <th>
             @Html.Label("Exercise Name")
@@ -37,3 +52,7 @@
 }
 
 </table>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>

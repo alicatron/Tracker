@@ -16,9 +16,37 @@ namespace Tracker.Controllers.TrackerController
         private TrackerContext db = new TrackerContext();
 
         // GET: Exercises
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string option)
         {
-            return View(db.Exercises.ToList());
+            var exercises = from e in db.Exercises
+                            select e;
+
+            if (!String.IsNullOrEmpty(searchString) & option == "ExerciseName")
+            {
+                exercises = exercises.Where(x => x.ExerciseName.Contains(searchString));
+                return View(exercises);
+            }
+            else if (!String.IsNullOrEmpty(searchString) & option == "BodyPart")
+            {
+                try
+                {
+                    BodyPart bodyValue = (BodyPart)Enum.Parse(typeof(BodyPart), searchString);
+                    if (Enum.IsDefined(typeof(BodyPart), bodyValue) | bodyValue.ToString().Contains(","))
+                        exercises = exercises.Where(x => x.bodyPart.ToString().ToUpper() == bodyValue.ToString().ToUpper());
+                    return View(exercises.OrderBy(x => x.ExerciseName));
+                }
+                catch (ArgumentException)
+                {
+                    return new HttpStatusCodeResult(404);
+                }
+            }
+
+
+
+            else
+            {
+                return View(db.Exercises.OrderBy(x => x.bodyPart).ToList());
+            }
         }
 
         // GET: Exercises/Details/5
