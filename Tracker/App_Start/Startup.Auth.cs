@@ -46,13 +46,13 @@ namespace Tracker
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            app.UseMicrosoftAccountAuthentication(
+              clientId: "30946b68-69ee-400f-a817-ab017badbe0d",
+                clientSecret: "cnn93KFFqPR66aJD4B5XGei");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+              consumerKey: "vm0n2kS5Vd52RlZzHGqwkopiF",
+               consumerSecret: "2s5HpwaG8brzyAt7Y5P1wyqGssFkjvE9XBePOohEwXugKzMC1l");
 
             app.UseFacebookAuthentication(
               appId: "316740338749205",
@@ -66,3 +66,4 @@ namespace Tracker
         }
     }
 }
+
